@@ -58,21 +58,36 @@ export default {
             appointments: {}
         }
     },
-    mounted() {
-        this.appointments = {
-            1: {
-                name: 'Appointment 1',
-                body: 'Test body',
-            },
-            2: {
-                name: 'Appointment 2',
-                body: 'Test Body 2',
-            },
-            3: {
-                name: 'Appointment 3',
-                body: 'Test Body 3',
-            }
+    methods: {
+        error(e)
+        {
+         console.log(e)
         }
+    },
+    created() {
+        axios.get('/api/v1/appointments', {}).
+        then((response) => {
+            if (response.data.success) {
+                //this.appointments = response.data.appointments
+                this.appointments = {
+                    1: {
+                        name: 'Appointment 1',
+                        body: 'Test body',
+                    },
+                    2: {
+                        name: 'Appointment 2',
+                        body: 'Test Body 2',
+                    },
+                    3: {
+                        name: 'Appointment 3',
+                        body: 'Test Body 3',
+                    }
+                }
+            }
+        }).
+        catch((error) => {
+            this.error()
+        });
     }
 
 }

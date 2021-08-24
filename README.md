@@ -28,7 +28,6 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 > Logging - system/application
 - see laravel.log for all application messages.
 
-
 > Monitoring / Alerting
 - For a live enviroment I would write monitoring scripts as required.  I would also recommend the use of a tool such as New Relic for real time in depth analysis of all layers of the application.  For real time alerting I would use something like Slack which allows devs/users to monitor channels that will alert if a problem occurs in the live system.
 
@@ -45,7 +44,7 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 - using Git, Docker and the .env files each dev should able to quickly and easily configure this project to run on his/her chosen architecture without any issues. 
 
 > Code version control and branch/development life-cycle
-- Git would be used for all versioning, this is something that has varied from place to place that I have worked.  It is clear that goot versioning has to be observed at all times with appropriate branches being utilised for satelite/internal projects.  It is also however important to keep the codebase as cohesive as possible.  Many disparate repos for the same project/app can lead to massive conflict issues later.  
+- Git would be used for all versioning, this is something that has varied from place to place that I have worked.  It is clear that good versioning has to be observed at all times with appropriate branches being utilised for satelite/internal projects.  It is also however important to keep the codebase as cohesive as possible.  Many disparate repos for the same project/app can lead to massive conflict issues later.  
 - Development life cycle would be dictated by the needs of the business.  Flexibility is key and an ability to move quickly when change is required.
 
 > What could a deployment look like? (Infra/CI/CD)
@@ -62,7 +61,7 @@ This will give me instantly all the auth layer functionality I need (inc optiona
 
 Relationships will be defined at the data model level.  This then allows the me to quickly and easily utilise these relationships via shorthand statements within the application.
 
-The API side of it I will build manually.  However Laravel does already come with a pre setup API layer with all authentication built right into the framework out of the box.  This allows secure routes to be set up with minimal coding.  Again saving a lot of programming and testing time.
+The API architecture I will build manually.  However Laravel does already come with a pre setup API layer with all authentication built right into the framework out of the box.  This allows secure routes to be set up with minimal coding.  Again saving a lot of programming and testing time.  This will alow me to interact with the API without the need for bespoke verification. For a production API (or given more time on this) where external users would be calling the endpoints I would utilise Laravel's Jetstream module that allows creation of 'teams' with 'members'.  The teams can be used as clients and the API access would then be verfied using a client token and and the client ID.
 
 Front end will be done utilising NPM and Vue JS.
 
@@ -90,7 +89,7 @@ password_resets -> email, token, created_at
 
 personal_access_tokens -> id, tokenable_type, tokenable_id, name, token, abilities, last_used_at, created_at, updated_at
 
-appointments -> id, service_id, date_id, time_id, notes_id, created_at, updated_at
+appointments -> id, service_id, date_id, time_id, notes_id, user_id, created_at, updated_at
 
 users -> id, name, email, email_verified_at, password, remember_token, created_at, updated_at
 

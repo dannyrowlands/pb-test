@@ -19725,21 +19725,35 @@ __webpack_require__.r(__webpack_exports__);
       appointments: {}
     };
   },
-  mounted: function mounted() {
-    this.appointments = {
-      1: {
-        name: 'Appointment 1',
-        body: 'Test body'
-      },
-      2: {
-        name: 'Appointment 2',
-        body: 'Test Body 2'
-      },
-      3: {
-        name: 'Appointment 3',
-        body: 'Test Body 3'
+  methods: {
+    error: function error(e) {
+      console.log(e);
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/v1/appointments', {}).then(function (response) {
+      if (response.data.success) {
+        //this.appointments = response.data.appointments
+        _this.appointments = {
+          1: {
+            name: 'Appointment 1',
+            body: 'Test body'
+          },
+          2: {
+            name: 'Appointment 2',
+            body: 'Test Body 2'
+          },
+          3: {
+            name: 'Appointment 3',
+            body: 'Test Body 3'
+          }
+        };
       }
-    };
+    })["catch"](function (error) {
+      _this.error();
+    });
   }
 });
 

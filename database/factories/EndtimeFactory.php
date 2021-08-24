@@ -2,22 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Appointment;
+use App\Models\Endtime;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Service;
-use App\Models\Date;
-use App\Models\Time;
-use App\Models\Note;
 
-class AppointmentFactory extends Factory
+class EndtimeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Appointment::class;
+    protected $model = Endtime::class;
 
     /**
      * Define the model's default state.
@@ -27,10 +22,7 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => Auth::id(),
-            'service_id' => Service::factory()->make(),
-            'date_id' => Date::factory()->make(['date' => $this->faker->dateTimeBetween('1 day', '100 days')]),
-            'notes_id' => Note::factory()->make(),
+            'time' => $this->faker->Time(),
             'created_at' => $this->faker->dateTimeBetween('-1 year', '-10 days'),
             'updated_at' => $this->faker->dateTimeBetween('-9 days', '-1 days'),
         ];

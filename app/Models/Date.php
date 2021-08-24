@@ -16,4 +16,20 @@ class Date extends Model
     {
         return $this->hasOne(Appointment::class);
     }
+
+    /**
+     * Get the start time for this date record.
+     */
+    public function time()
+    {
+        return $this->hasOne(Time::class);
+    }
+
+    /**
+     * Get the end time for this date record.
+     */
+    public function endtime()
+    {
+        return $this->hasOne(Endtime::class);
+    }
 }

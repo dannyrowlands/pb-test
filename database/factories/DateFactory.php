@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Date;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Time;
 
 class DateFactory extends Factory
 {
@@ -22,7 +23,10 @@ class DateFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'date' => $this->faker->dateTimeBetween('1 day', '100 days'),
+            'time_id' => Time::factory()->make(),
+            'created_at' => $this->faker->dateTimeBetween('-1 year', '-10 days'),
+            'updated_at' => $this->faker->dateTimeBetween('-9 days', '-1 days'),
         ];
     }
 }

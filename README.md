@@ -55,10 +55,10 @@ appointments -> id, service_id, date_id, time_id, notes_id, created_at, updated_
 
 users -> id, name, email, email_verified_at, password, remember_token, created_at, updated_at
 
-services -> id, name, description
+services -> id, name, description, created_at, updated_at
 
-dates -> id, date, time_id
+dates -> id, date, time_id, created_at, updated_at
 
-times -> id, time
+times -> id, time, created_at, updated_at
 
-notes -> id, title, body
+notes -> id, appointment_id, title, body, created_at, updated_at

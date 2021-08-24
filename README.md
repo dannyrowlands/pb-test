@@ -1,6 +1,6 @@
 pb-test  dannysrowlands@gmail.com  23-09-2021
 
-PAMPER BOOK – Tech Test Supporting doc.
+### PAMPER BOOK – Tech Test Supporting doc.
 
 > Create an API capable of the following operations: Create, Read, Update and Delete on "Appointments".
 
@@ -34,14 +34,12 @@ Scaleability wise we could utilise queues to asyncronously handle all tasks such
 
 One other important thing I can also bring is my contacts.  I still have a good relationship with the external team I built when in a previous role.  These guys are excellent coders and can be available on an ad hoc basis if ever required for a fast build project.
 
+## <b>Data Diagram.</b>
 
-<b>Data Diagram.</b>
-
-<b>Tables:</b>
+###<b>Tables:</b>
 failed_jobs, migrations, password_resets, personal_access_tokens, appointments, users, services, times, dates, notes,
 
-
-<b>Table fields:</b>
+### <b>Table fields:</b>
 
 failed_jobs -> id, uuid, connection, queue, payload, exception, failed_at
 

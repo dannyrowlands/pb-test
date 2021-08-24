@@ -12,7 +12,46 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 
 > Use any language/framework/app/tool you feel most comfortable
 
-My framework of choice for this Laravel 8.6.0.
+---
+
+> Seed data 
+- see DB seeders
+
+> DB Migrations 
+- see DB migrations
+
+> ENV variables and secret management
+- see .env.example
+
+> Logging - system/application
+- see laravel.log for all application messages.
+
+
+> Monitoring / Alerting
+- For a live enviroment I would write monitoring scripts as required.  I would also recommend the use of a tool such as New Relic for real time in depth analysis of all layers of the application.
+
+> Unit Tests
+- See tests folder
+
+> Functional / Integration Tests
+- See tests folder
+
+> API Versioning / API Spec
+- The structure built into Laravel and utilised allows for easy versioning of api's and their routes.
+
+> Local development for multiple developers
+- using Git, Docker and the .env files each dev should able to quickly and easily configure this project to run on his/her chosen architecture without any issues. 
+
+> Code version control and branch/development life-cycle
+- Git would be used for all versioning, this is something that has varied from place to place that I have worked.  It is clear that goot versioning has to be observed at all times with appropriate branches being utilised for satelite/internal projects.  It is also however important to keep the codebase as cohesive as possible.  Many disparate repos for the same project/app can lead to massive conflict issues later.  
+- Development life cycle would be dictated by the needs of the business.  Flexibility is key and an ability to move quickly when change is required.
+
+> What could a deployment look like? (Infra/CI/CD)
+- I set up a full CI pipeline in my last role that was similar to this one.  I was endeavouring to eliminate human error on deployments.  The best way to do this is automate all process where this is possible.  We never reached FULL CI, but we had a pipeline that allowed me to complete a deployment by filling a few parameters such as release number etc.  We were not full CI in the sense that the process did require human triggering.  However once triggered the whole process was automated.  Just not triggered by the deployment of code and tests passing. 
+
+
+
+**My framework of choice for this Laravel 8.6.0.**
 
 I will be using ‘Sail’ and docker for the VM setup.  (I previously used Vagrant for all VM’s however I cannot beat Laravel Sail (with Docker) for ease of use out of the box across all OS’s)
 

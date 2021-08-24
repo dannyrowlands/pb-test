@@ -34,6 +34,14 @@ class Appointment extends Model
     }
 
     /**
+     * Get the user for the appointment.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    /**
      * Get the notes for the appointment.
      */
     public function notes()

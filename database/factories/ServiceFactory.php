@@ -22,7 +22,10 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->city,
+            'description' => $this->faker->sentence,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', '-10 days'),
+            'updated_at' => $this->faker->dateTimeBetween('-9 days', '-1 days'),
         ];
     }
 }

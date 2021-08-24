@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Service;
 use App\Models\Date;
-use App\Models\Time;
 use App\Models\Note;
 
 class AppointmentFactory extends Factory
@@ -27,10 +26,9 @@ class AppointmentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => Auth::id(),
+            'user_id' => 1,
             'service_id' => Service::factory()->make(),
             'date_id' => Date::factory()->make(['date' => $this->faker->dateTimeBetween('1 day', '100 days')]),
-            'notes_id' => Note::factory()->make(),
             'created_at' => $this->faker->dateTimeBetween('-1 year', '-10 days'),
             'updated_at' => $this->faker->dateTimeBetween('-9 days', '-1 days'),
         ];

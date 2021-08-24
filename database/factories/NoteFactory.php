@@ -22,7 +22,9 @@ class NoteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'appointment_id' => 1,
+            'title' => $this->faker->sentence,
+            'body' => $this->faker->paragraph,
         ];
     }
 }

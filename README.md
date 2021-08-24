@@ -7,8 +7,10 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 > Appointments should contain up to 6 relevant fields/relationships (user, time, service etc...)
 
 > Consider modelling two more complicated relationships/entities - eg: User->Appointments? Service->Appointments?
+- See models for relationships
 
 > Upon creation and deletion of an appointment the system must send an email? How would this scale?
+- See solution below.  Queues will allow these to be handled asynchronously.
 
 > Use any language/framework/app/tool you feel most comfortable
 

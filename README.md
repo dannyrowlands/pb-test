@@ -30,7 +30,7 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 
 
 > Monitoring / Alerting
-- For a live enviroment I would write monitoring scripts as required.  I would also recommend the use of a tool such as New Relic for real time in depth analysis of all layers of the application.
+- For a live enviroment I would write monitoring scripts as required.  I would also recommend the use of a tool such as New Relic for real time in depth analysis of all layers of the application.  For real time alerting I would use something like Slack which allows devs/users to monitor channels that will alert if a problem occurs in the live system.
 
 > Unit Tests
 - See tests folder

@@ -14,6 +14,6 @@ class Endtime extends Model
      */
     public function date()
     {
-        return $this->hasOne(Date::class);
+        return $this->belongsTo(Date::class);
     }
 }

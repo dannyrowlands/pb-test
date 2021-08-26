@@ -16,6 +16,10 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+
+        @if (Auth::check())
+            <meta name="user_id" content="{{ Auth::user()->id }}" />
+        @endif
     </head>
     <body class="font-sans antialiased">
         @inertia
@@ -24,4 +28,7 @@
             <script src="http://localhost:8080/js/bundle.js"></script>
         @endenv
     </body>
+    <script>
+        let user = {!! Auth::id(); !!};
+    </script>
 </html>

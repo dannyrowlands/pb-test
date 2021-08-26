@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group( array( 'prefix' => '/v1'), function()
 {
     Route::post('/appointments', [AppointmentController::class, 'createAppointment']);
-    Route::get('/appointments', [AppointmentController::class, 'getAll']);
-    Route::get('/appointments/{appointment_id}', [AppointmentController::class, 'getAppointment']);
-    Route::put('/appointments/{appointment_id}', [AppointmentController::class, 'updateAppointment']);
-    Route::delete('/appointments/{appointment_id}', [AppointmentController::class, 'deleteAppointment']);
+    Route::get('/appointments', [AppointmentController::class, 'getAllForUser']);
+    Route::put('/appointments/{id}', [AppointmentController::class, 'update']);
+    Route::delete('/appointments/{id}', [AppointmentController::class, 'delete']);
+
+
+    Route::get('/services', [ServiceController::class, 'getAll']);
 });

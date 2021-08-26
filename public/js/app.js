@@ -19722,38 +19722,130 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      appointments: {}
+      appointments: {},
+      services: {},
+      service: null,
+      starttime: null,
+      endtime: null,
+      date: null,
+      user: null,
+      currentAppointment: null,
+      config: {
+        showBookingForm: false,
+        editMode: false
+      }
     };
   },
   methods: {
     error: function error(e) {
       console.log(e);
+    },
+    toggleBookingForm: function toggleBookingForm() {
+      this.config.showBookingForm = !this.config.showBookingForm;
+      this.config.editMode = false;
+      this.date = null;
+      this.time = null;
+      this.endtime = null;
+      this.service = null;
+      this.currentAppointment = null;
+    },
+    getServices: function getServices() {
+      var _this = this;
+
+      axios.get('/api/v1/services', {}).then(function (response) {
+        if (response.data) {
+          _this.services = response.data;
+        }
+      })["catch"](function (error) {
+        _this.error();
+      });
+    },
+    getAppointments: function getAppointments() {
+      var _this2 = this;
+
+      axios.get('/api/v1/appointments?user=' + this.user, {}).then(function (response) {
+        if (response.data) {
+          _this2.appointments = response.data;
+        }
+      })["catch"](function (error) {
+        _this2.error();
+      });
+    },
+    createAppointment: function createAppointment() {
+      var _this3 = this;
+
+      axios.post('/api/v1/appointments', {
+        service: this.service,
+        starttime: this.starttime,
+        endtime: this.endtime,
+        date: this.date,
+        user: this.user
+      }).then(function (response) {
+        if (response.data) {
+          _this3.getAppointments();
+        }
+      })["catch"](function (error) {
+        _this3.error();
+      });
+    },
+    editAppointment: function editAppointment(appointment) {
+      console.log(appointment);
+      this.date = appointment.date;
+      this.service = appointment.service_id;
+      this.endtime = appointment.end;
+      this.starttime = appointment.start;
+      this.config.editMode = true;
+      this.config.showBookingForm = true;
+      this.currentAppointment = appointment.appointment;
+    },
+    saveEditedAppointment: function saveEditedAppointment(appointment) {
+      var _this4 = this;
+
+      axios.put('/api/v1/appointments/' + this.currentAppointment, {
+        service: this.service,
+        starttime: this.starttime,
+        endtime: this.endtime,
+        date: this.date,
+        user: this.user
+      }).then(function (response) {
+        if (response.data) {
+          _this4.getAppointments();
+
+          _this4.config.showBookingForm = false;
+          _this4.currentAppointment = null;
+          _this4.date = null;
+          _this4.service = null;
+          _this4.endtime = null;
+          _this4.starttime = null;
+        }
+      })["catch"](function (error) {
+        _this4.error();
+      });
+    },
+    delAppointment: function delAppointment(appointment) {
+      var _this5 = this;
+
+      if (confirm('Do you wish to delete this record?')) {
+        axios["delete"]('/api/v1/appointments/' + appointment.appointment, {
+          service: this.service,
+          starttime: this.starttime,
+          endtime: this.endtime,
+          date: this.date,
+          user: this.user
+        }).then(function (response) {
+          if (response.data) {
+            _this5.getAppointments();
+          }
+        })["catch"](function (error) {
+          _this5.error();
+        });
+      }
     }
   },
   created: function created() {
-    var _this = this;
-
-    axios.get('/api/v1/appointments', {}).then(function (response) {
-      if (response.data.success) {
-        //this.appointments = response.data.appointments
-        _this.appointments = {
-          1: {
-            name: 'Appointment 1',
-            body: 'Test body'
-          },
-          2: {
-            name: 'Appointment 2',
-            body: 'Test Body 2'
-          },
-          3: {
-            name: 'Appointment 3',
-            body: 'Test Body 3'
-          }
-        };
-      }
-    })["catch"](function (error) {
-      _this.error();
-    });
+    this.user = user;
+    this.getAppointments();
+    this.getServices();
   }
 });
 
@@ -21081,7 +21173,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "font-semibold text-xl text-gray-800 leading-tight"
-}, " Dashboard ", -1
+}, " Pamper Book Test Appointment System ", -1
 /* HOISTED */
 );
 
@@ -21097,45 +21189,119 @@ var _hoisted_4 = {
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "p-6 bg-white border-b border-gray-200"
-}, " Welcome to Pamper Book Test Appointment System ", -1
+}, null, -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_6 = {
   "class": "p-6 bg-white border-b border-gray-200"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "p-6 bg-white"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "#"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Book Appointment")])])])], -1
-/* HOISTED */
-);
-
+};
 var _hoisted_7 = {
-  "class": "p-6 bg-white border-b border-gray-200"
+  "class": "p-6 bg-white"
 };
 var _hoisted_8 = {
+  "class": "pb-5"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Book Appointment", -1
+/* HOISTED */
+);
+
+var _hoisted_10 = [_hoisted_9];
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Hide Booking Form", -1
+/* HOISTED */
+);
+
+var _hoisted_12 = [_hoisted_11];
+var _hoisted_13 = {
+  key: 0
+};
+var _hoisted_14 = {
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "service",
+  "class": "block text-sm font-medium text-gray-700 font-bold"
+}, "Service to be booked", -1
+/* HOISTED */
+);
+
+var _hoisted_16 = ["value"];
+var _hoisted_17 = {
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "date",
+  "class": "block text-sm font-medium text-gray-700 font-bold"
+}, "Appointment Date", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = {
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "starttime",
+  "class": "block text-sm font-medium text-gray-700 font-bold"
+}, "Start of appointment to be booked", -1
+/* HOISTED */
+);
+
+var _hoisted_21 = {
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "endtime",
+  "class": "block text-sm font-medium text-gray-700 font-bold"
+}, "End of appointment to be booked", -1
+/* HOISTED */
+);
+
+var _hoisted_23 = {
+  key: 0,
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+var _hoisted_24 = {
+  key: 1,
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+var _hoisted_25 = {
+  "class": "p-6 bg-white border-b border-gray-200"
+};
+var _hoisted_26 = {
   "class": "p-6 bg-white"
 };
-var _hoisted_9 = {
+var _hoisted_27 = {
   "class": ""
 };
-var _hoisted_10 = {
+var _hoisted_28 = {
   "class": ""
 };
+var _hoisted_29 = {
+  "class": ""
+};
+var _hoisted_30 = {
+  "class": ""
+};
+var _hoisted_31 = ["onClick"];
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "#"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Edit Appointment")])], -1
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Edit Appointment", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "#"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Cancel Appointment")])], -1
+var _hoisted_33 = [_hoisted_32];
+var _hoisted_34 = ["onClick"];
+
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Cancel Appointment", -1
 /* HOISTED */
 );
 
+var _hoisted_36 = [_hoisted_35];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
 
@@ -21148,12 +21314,99 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_1];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.appointments, function (item) {
-        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [!$data.config.showBookingForm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+        key: 0,
+        href: "#",
+        onClick: _cache[0] || (_cache[0] = function ($event) {
+          return $options.toggleBookingForm();
+        })
+      }, _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.config.showBookingForm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+        key: 1,
+        href: "#",
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return $options.toggleBookingForm();
+        })
+      }, _hoisted_12)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.config.showBookingForm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        "class": "form-control",
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+          return $data.service = $event;
+        }),
+        name: "service"
+      }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.services, function (service) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+          value: service.id,
+          key: service.id
+        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(service.name), 9
+        /* TEXT, PROPS */
+        , _hoisted_16);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))], 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.service]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        autofocus: "",
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+          return $data.date = $event;
+        }),
+        placeholder: "eg 2021-10-10",
+        name: "date",
+        "class": "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.date]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        autofocus: "",
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+          return $data.starttime = $event;
+        }),
+        name: "starttime",
+        placeholder: "e.g 10:00",
+        "class": "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.starttime]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        autofocus: "",
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+          return $data.endtime = $event;
+        }),
+        name: "endtime",
+        placeholder: "e.g 10:30",
+        "class": "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.endtime]])]), !$data.config.editMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[6] || (_cache[6] = function () {
+          return $options.createAppointment && $options.createAppointment.apply($options, arguments);
+        }),
+        "class": "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      }, "Create Apppointment")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.config.editMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[7] || (_cache[7] = function () {
+          return $options.saveEditedAppointment && $options.saveEditedAppointment.apply($options, arguments);
+        }),
+        "class": "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      }, "Alter Apppointment")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.appointments, function (appointment) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(appointment.service), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.body), 1
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(appointment.date), 1
         /* TEXT */
-        ), _hoisted_11, _hoisted_12])]);
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(appointment.start), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(appointment.end), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+          onClick: function onClick($event) {
+            return $options.editAppointment(appointment);
+          },
+          href: "#"
+        }, _hoisted_33, 8
+        /* PROPS */
+        , _hoisted_31)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+          onClick: function onClick($event) {
+            return $options.delAppointment(appointment);
+          },
+          href: "#"
+        }, _hoisted_36, 8
+        /* PROPS */
+        , _hoisted_34)])])]);
       }), 256
       /* UNKEYED_FRAGMENT */
       ))])])])])])];

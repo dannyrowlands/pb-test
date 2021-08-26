@@ -22,6 +22,8 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 > DB Migrations 
 - see DB migrations
 
+TODO::  Add relationships to database via migration.  Set foreign keys and indexes.
+
 > ENV variables and secret management
 - see .env.example
 
@@ -54,6 +56,10 @@ pb-test  dannysrowlands@gmail.com  23-09-2021
 
 **My framework of choice for this Laravel 8.6.0.**
 
+I will do as much as I can sensibly complete in the alocated time.  Clearly this project needs more than 4 hours of coding and planning time.  I will make notes throughout in places I would like to have done more.  The level of technical debt will be high as this is a rushed project.
+
+I would hope in a production enviroment to have more time to plan, design and build this application.
+
 I will be using ‘Sail’ and docker for the VM setup.  (I previously used Vagrant for all VM’s however I cannot beat Laravel Sail (with Docker) for ease of use out of the box across all OS’s)
 
 I can quickly produce the security and user handling side of this by utilising Laravel Breeze.
@@ -74,7 +80,7 @@ Scaleability wise we could utilise queues to asyncronously handle all tasks such
 
 One other important thing I can also bring is my contacts.  I still have a good relationship with the external team I built when in a previous role.  These guys are excellent coders and can be available on an ad hoc basis if ever required for a fast build project.
 
-## <b>Data Diagram.</b>
+## <b>Data Structure.</b>
 
 ###<b>Tables:</b>
 failed_jobs, migrations, password_resets, personal_access_tokens, appointments, users, services, times, dates, notes,
@@ -89,14 +95,62 @@ password_resets -> email, token, created_at
 
 personal_access_tokens -> id, tokenable_type, tokenable_id, name, token, abilities, last_used_at, created_at, updated_at
 
-appointments -> id, service_id, date_id, time_id, notes_id, user_id, created_at, updated_at
+appointments -> id, service_id, date_id, user_id, created_at, updated_at
 
 users -> id, name, email, email_verified_at, password, remember_token, created_at, updated_at
 
-services -> id, name, description, created_at, updated_at
+services -> id, name, description, duration, created_at, updated_at
 
-dates -> id, date, time_id, created_at, updated_at
+dates -> id, date, time_id, endtime_id, created_at, updated_at
 
 times -> id, time, created_at, updated_at
 
+endtimes -> id, time, created_at, updated_at
+
 notes -> id, appointment_id, title, body, created_at, updated_at
+
+### **Setup of vm etc.... getting this up and running.....**
+
+You will need Docker installed.
+
+The repo can be downloaded here - https://github.com/dannyrowlands/pb-test.git
+
+Unzip repo, navigate into repo folder via command line
+
+Copy `.env.example` to `.env` and edit ports within file as required.
+
+Issue the following commands.
+
+`sail up -d`
+
+The vm containers should then start.  (in the event of port conflicts edit within the .env file)
+
+Issue the following commands from command line.
+
+`sail composer install`
+
+`sail artisan migrate`
+
+`sail artisan db:seed`
+
+`sail npm run dev`
+
+You will now be able to register by going to http://localhost:9999/register (or your chosen port)
+
+Once registered you can click on the dashboard link, this will take you to the form.  The form allows you to do all CRUD operations via the API.
+
+### **Further enhancements....**
+
+Given more time on this there are the following items to be addressed....
+
+* Database needs indexes, relationships setting up and delete cascading to remove orphaned records on delete of the parent (appointment).
+* The validation for the form fields needs to notify the front end of any errors.
+* Form needs date/time pickers rather than text fields.
+* Addition of admin area for Services table.
+* Utilise the 'duration' field to autopopulate the end time for a service based on the requested start time. Also allow overide for manual service length.
+
+### **Comments**
+
+I really enjoyed the opportunity to do this task.  I hope what I have done is satisfactory.
+
+In the event of issues, contact me either via email - dannysrowlands@gmail.com or telephone - 07923 041470

@@ -148,6 +148,8 @@ Given more time on this there are the following items to be addressed....
 * Form needs date/time pickers rather than text fields.
 * Addition of admin area for Services table.
 * Utilise the 'duration' field to autopopulate the end time for a service based on the requested start time. Also allow overide for manual service length.
+* Further refactoring of code.  Move any code not in correct place (ie function in controller rather than in model etc).
+* Creation of Unit and Feature tests for new functionality.
 
 ### **Comments**
 

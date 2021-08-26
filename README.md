@@ -133,6 +133,8 @@ Issue the following commands from command line.
 
 `sail artisan db:seed`
 
+`sail npm install`
+
 `sail npm run dev`
 
 You will now be able to register by going to http://localhost:9999/register (or your chosen port)

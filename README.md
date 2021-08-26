@@ -1,64 +1,156 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+pb-test  dannysrowlands@gmail.com  23-09-2021
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### PAMPER BOOK – Tech Test Supporting doc.
 
-## About Laravel
+> Create an API capable of the following operations: Create, Read, Update and Delete on "Appointments".
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> Appointments should contain up to 6 relevant fields/relationships (user, time, service etc...)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> Consider modelling two more complicated relationships/entities - eg: User->Appointments? Service->Appointments?
+- See models for relationships
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> Upon creation and deletion of an appointment the system must send an email? How would this scale?
+- See solution below.  Queues will allow these to be handled asynchronously.
 
-## Learning Laravel
+> Use any language/framework/app/tool you feel most comfortable
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> Seed data 
+- see DB seeders
 
-## Laravel Sponsors
+> DB Migrations 
+- see DB migrations
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+TODO::  Add relationships to database via migration.  Set foreign keys and indexes.
 
-### Premium Partners
+> ENV variables and secret management
+- see .env.example
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+> Logging - system/application
+- see laravel.log for all application messages.
 
-## Contributing
+> Monitoring / Alerting
+- For a live enviroment I would write monitoring scripts as required.  I would also recommend the use of a tool such as New Relic for real time in depth analysis of all layers of the application.  For real time alerting I would use something like Slack which allows devs/users to monitor channels that will alert if a problem occurs in the live system.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> Unit Tests
+- See tests folder
 
-## Code of Conduct
+> Functional / Integration Tests
+- See tests folder
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> API Versioning / API Spec
+- The structure built into Laravel and utilised allows for easy versioning of api's and their routes.
 
-## Security Vulnerabilities
+> Local development for multiple developers
+- using Git, Docker and the .env files each dev should able to quickly and easily configure this project to run on his/her chosen architecture without any issues. 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> Code version control and branch/development life-cycle
+- Git would be used for all versioning, this is something that has varied from place to place that I have worked.  It is clear that good versioning has to be observed at all times with appropriate branches being utilised for satelite/internal projects.  It is also however important to keep the codebase as cohesive as possible.  Many disparate repos for the same project/app can lead to massive conflict issues later.  
+- Development life cycle would be dictated by the needs of the business.  Flexibility is key and an ability to move quickly when change is required.
 
-## License
+> What could a deployment look like? (Infra/CI/CD)
+- I set up a full CI pipeline in my last role that was similar to this one.  I was endeavouring to eliminate human error on deployments.  The best way to do this is automate all process where this is possible.  We never reached FULL CI, but we had a pipeline that allowed me to complete a deployment by filling a few parameters such as release number etc.  We were not full CI in the sense that the process did require human triggering.  However once triggered the whole process was automated.  Just not triggered by the deployment of code and tests passing. 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+**My framework of choice for this Laravel 8.6.0.**
+
+I will do as much as I can sensibly complete in the alocated time.  Clearly this project needs more than 4 hours of coding and planning time.  I will make notes throughout in places I would like to have done more.  The level of technical debt will be high as this is a rushed project.
+
+I would hope in a production enviroment to have more time to plan, design and build this application.
+
+I will be using ‘Sail’ and docker for the VM setup.  (I previously used Vagrant for all VM’s however I cannot beat Laravel Sail (with Docker) for ease of use out of the box across all OS’s)
+
+I can quickly produce the security and user handling side of this by utilising Laravel Breeze.
+This will give me instantly all the auth layer functionality I need (inc optional 2FA).  Saving a huge amount of work.  This Breeze setup also comes with unit and feature testing already in place allowing for quick and easy modification without breaking existing functionality.
+
+Relationships will be defined at the data model level.  This then allows the me to quickly and easily utilise these relationships via shorthand statements within the application.
+
+The API architecture I will build manually.  However Laravel does already come with a pre setup API layer with all authentication built right into the framework out of the box.  This allows secure routes to be set up with minimal coding.  Again saving a lot of programming and testing time.  This will alow me to interact with the API without the need for bespoke verification. For a production API (or given more time on this) where external users would be calling the endpoints I would utilise Laravel's Jetstream module that allows creation of 'teams' with 'members'.  The teams can be used as clients and the API access would then be verfied using a client token and and the client ID.
+
+Front end will be done utilising NPM and Vue JS.
+
+For deployment of this I would ideally have a Jenkins server that runs a set of prebuilt scripts.  These scripts would include setting active sites into maintenance mode (only where absolutely required by the specific release),  any server preparation steps – ie software upgrades etc,  composer installs/updates, migrations required, deployment of new live code and unit/feature test runs required.
+This process can be as in depth as is chosen for the specific application and the specific release.  (Automating processes is something I really do enjoy)
+
+The reasoning behind automating as much of these processes a s possible is to eliminate the opportunities for human error wherever possible.  Releases are often broken by a missed step.  Automating all possible processes stops this.
+
+Scaleability wise we could utilise queues to asyncronously handle all tasks such as email sending.  Thus decoupling the front end from the process.  This also scales well as you can set up multiple queues with their own rules to handle all scenarios.  You can also run multiple quese simultaneously to handle larger volume tasks without hindering the front end application.  Queues can be used for pertty much any task that can be run asynchronously.
+
+One other important thing I can also bring is my contacts.  I still have a good relationship with the external team I built when in a previous role.  These guys are excellent coders and can be available on an ad hoc basis if ever required for a fast build project.
+
+## <b>Data Structure.</b>
+
+###<b>Tables:</b>
+failed_jobs, migrations, password_resets, personal_access_tokens, appointments, users, services, times, dates, notes,
+
+### <b>Table fields:</b>
+
+failed_jobs -> id, uuid, connection, queue, payload, exception, failed_at
+
+migrations -> id, migration, batch
+
+password_resets -> email, token, created_at
+
+personal_access_tokens -> id, tokenable_type, tokenable_id, name, token, abilities, last_used_at, created_at, updated_at
+
+appointments -> id, service_id, date_id, user_id, created_at, updated_at
+
+users -> id, name, email, email_verified_at, password, remember_token, created_at, updated_at
+
+services -> id, name, description, duration, created_at, updated_at
+
+dates -> id, date, time_id, endtime_id, created_at, updated_at
+
+times -> id, time, created_at, updated_at
+
+endtimes -> id, time, created_at, updated_at
+
+notes -> id, appointment_id, title, body, created_at, updated_at
+
+### **Setup of vm etc.... getting this up and running.....**
+
+You will need Docker installed.
+
+The repo can be downloaded here - https://github.com/dannyrowlands/pb-test.git
+
+Unzip repo, navigate into repo folder via command line
+
+Copy `.env.example` to `.env` and edit ports within file as required.
+
+Issue the following commands.
+
+`sail up -d`
+
+The vm containers should then start.  (in the event of port conflicts edit within the .env file)
+
+Issue the following commands from command line.
+
+`sail composer install`
+
+`sail artisan migrate`
+
+`sail artisan db:seed`
+
+`sail npm run dev`
+
+You will now be able to register by going to http://localhost:9999/register (or your chosen port)
+
+Once registered you can click on the dashboard link, this will take you to the form.  The form allows you to do all CRUD operations via the API.
+
+### **Further enhancements....**
+
+Given more time on this there are the following items to be addressed....
+
+* Database needs indexes, relationships setting up and delete cascading to remove orphaned records on delete of the parent (appointment).
+* The validation for the form fields needs to notify the front end of any errors.
+* Form needs date/time pickers rather than text fields.
+* Addition of admin area for Services table.
+* Utilise the 'duration' field to autopopulate the end time for a service based on the requested start time. Also allow overide for manual service length.
+
+### **Comments**
+
+I really enjoyed the opportunity to do this task.  I hope what I have done is satisfactory.
+
+In the event of issues, contact me either via email - dannysrowlands@gmail.com or telephone - 07923 041470
